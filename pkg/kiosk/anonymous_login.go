@@ -7,7 +7,6 @@ import (
 	"os"
 	"time"
 
-	"github.com/chromedp/cdproto/inspector"
 	"github.com/chromedp/cdproto/runtime"
 	"github.com/chromedp/chromedp"
 )
@@ -47,11 +46,6 @@ func GrafanaKioskAnonymous(urlPtr *string, kioskMode int, autoFit *bool, isPlayL
 			for _, arg := range ev.Args {
 				log.Printf("%s - %s\n", arg.Type, arg.Value)
 			}
-		case *inspector.EventTargetCrashed:
-			log.Printf("target crashed, reload...")
-			go func() {
-				chromedp.Run(taskCtx, chromedp.Reload())
-			}()
 		}
 	})
 	// ensure that the browser process is started
